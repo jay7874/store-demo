@@ -21,7 +21,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import { useAuth } from './AuthContext';
 
 const navItems = [
-  { text: 'Stores', path: '/stores/123', icon: <StoreIcon /> },
+  { text: 'Stores', path: '/stores/123', icon: <StoreIcon />, default: true },
   { text: 'Profile', path: '/profile', icon: <PersonIcon />, protected: true }
 ];
 
@@ -34,7 +34,10 @@ export default function Header() {
 
   useEffect(() => {
     setActivePath(pathname);
-  }, [pathname]);
+    if (pathname === '/') {
+      router.push('/stores/123');
+    }
+  }, [pathname, router]);
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -45,7 +48,7 @@ export default function Header() {
 
   const handleNavigation = (item) => {
     if (item.protected && !user) {
-      openLoginModal();
+      openLoginModal(item.path);
       return;
     }
     router.push(item.path);
@@ -55,7 +58,7 @@ export default function Header() {
   return (
     <>
       <AppBar position="static" color="default" elevation={1}>
-        <Toolbar sx={{ justifyContent: 'space-around' }}>
+        <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Typography 
             variant="h6" 
             component="div" 
@@ -79,10 +82,7 @@ export default function Header() {
         open={drawerOpen}
         onClose={toggleDrawer(false)}
       >
-        <Box
-          sx={{ width: 250 }}
-          role="presentation"
-        >
+        <Box sx={{ width: 250 }} role="presentation">
           <List>
             {navItems.map((item) => (
               <ListItem 
