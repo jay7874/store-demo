@@ -9,7 +9,7 @@ export default function ProtectedRoute({ children }) {
 
   useEffect(() => {
     if (!user) {
-      openLoginModal('/profile');
+      openLoginModal('/');
     }
   }, [user, openLoginModal]);
 
