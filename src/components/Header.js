@@ -50,6 +50,7 @@ export default function Header() {
   const handleNavigation = (item) => {
     if (item.protected && !user) {
       openLoginModal(item.path);
+      openLoginModal(item.path);
       return;
     }
     router.push(item.path);
@@ -112,4 +113,4 @@ export default function Header() {
       </Drawer>
     </>
   );
-}
+          }

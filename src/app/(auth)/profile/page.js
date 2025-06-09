@@ -16,8 +16,10 @@ export default function Profile() {
         <div className="h-[100px] w-[100px] bg-green-700 rounded-full flex justify-center items-center text-2xl text-white te">
           N
         </div>
-        <Typography>@87840ae8-2081-7058-9021-ed8247afcd2f</Typography>
         <div className="text-4xl font-bold my-4">nickname</div>
+        <Typography sx={{
+          py:2
+        }}>@87840ae8-2081-7058-9021-ed8247afcd2f</Typography>
         <Button
           className="mx-2"
           variant="contained"
