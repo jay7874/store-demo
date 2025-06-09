@@ -1,10 +1,10 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { 
-  AppBar, 
-  Toolbar, 
-  Typography, 
+import {
+  AppBar,
+  Toolbar,
+  Typography,
   IconButton,
   Drawer,
   List,
@@ -19,9 +19,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import StoreIcon from '@mui/icons-material/Store';
 import PersonIcon from '@mui/icons-material/Person';
 import { useAuth } from './AuthContext';
+import CloseIcon from '@mui/icons-material/Close';
 
 const navItems = [
-  { text: 'Stores', path: '/stores/123', icon: <StoreIcon />, default: true },
+  { text: 'Stores', path: '/stores', icon: <StoreIcon />, default: true },
   { text: 'Profile', path: '/profile', icon: <PersonIcon />, protected: true }
 ];
 
@@ -35,7 +36,7 @@ export default function Header() {
   useEffect(() => {
     setActivePath(pathname);
     if (pathname === '/') {
-      router.push('/stores/123');
+      router.push('/stores');
     }
   }, [pathname, router]);
 
@@ -58,10 +59,10 @@ export default function Header() {
   return (
     <>
       <AppBar position="static" color="default" elevation={1}>
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <Typography 
-            variant="h6" 
-            component="div" 
+        <Toolbar sx={{ justifyContent: 'space-around' }}>
+          <Typography
+            variant="h6"
+            component="div"
             sx={{ fontWeight: 700 }}
           >
             V Report
@@ -83,10 +84,15 @@ export default function Header() {
         onClose={toggleDrawer(false)}
       >
         <Box sx={{ width: 250 }} role="presentation">
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 1 }}>
+            <IconButton onClick={toggleDrawer(false)}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
           <List>
             {navItems.map((item) => (
-              <ListItem 
-                key={item.text} 
+              <ListItem
+                key={item.text}
                 disablePadding
                 sx={{
                   bgcolor: activePath.startsWith(item.path) ? 'action.selected' : 'inherit'

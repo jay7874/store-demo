@@ -1,6 +1,7 @@
 "use client";
 import { Box, Typography, Button, Divider, Paper, Chip } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useRouter } from "next/navigation";
 
 const getEmbedUrl = (url) => {
   const match = url.match(/(?:\?v=|\/embed\/|\.be\/)([^&\n?#]+)/);
@@ -8,6 +9,12 @@ const getEmbedUrl = (url) => {
 };
 
 export default function StoreDetail({ stores }) {
+  const router = useRouter();
+
+  const handleShowMore = (id) => {
+    router.push(`/stores/${id}`);
+  }
+
   return (
     <>
       {stores.length > 0 &&
@@ -54,6 +61,7 @@ export default function StoreDetail({ stores }) {
               <Button
                 color="inherit"
                 endIcon={<ExpandMoreIcon />}
+                onClick={() => handleShowMore(store.id)}
                 sx={{
                   textTransform: "none",
                   color: "black",
